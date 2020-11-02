@@ -2,6 +2,8 @@
 
 A browser based API testing tool
 
+Deployed site: <https://peng-resty.herokuapp.com>
+
 **Detailed phase documents:**
 
 [Click here to see Phase-1 requirements](docs/phase1.md)

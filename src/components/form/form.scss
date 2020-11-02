@@ -1,0 +1,78 @@
+form {
+  display: flex;
+  flex-direction: column;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    margin: 1rem;
+    label{
+      padding: 0.5rem;
+    }
+  }
+
+  input[type=text] {
+    background: #f5f5f5;
+    border: none;
+    border-bottom: 1px solid #000;
+    font-size: 1.1rem;
+    margin: 0;
+    outline: none;
+    padding: .25rem;
+    transition: all 400ms ease-out;
+    width: 80%;
+
+    &:focus {
+      background: #fff;
+      border-bottom: 2px solid blue;
+    }
+  }
+
+  .methods {
+    display: flex;
+    align-self: center;
+
+    .method {
+      background: #f5f5f5;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: .5rem;
+      padding: 0 1rem;
+      line-height: 2rem;
+      height: 2rem;
+
+      &:hover, &.true {
+        background: #ccc;
+      }
+    }
+
+    textarea {
+      flex: 1;
+      height: 3rem;
+    }
+  }
+
+  button {
+    margin-left: 3rem;
+  }
+
+  #tempResult {
+    width: 96%;
+    margin-left:2%;
+    margin-right:2%;
+    background-color:lightgray;
+    min-height: 40rem;
+    align-self: center;
+    border-color: #ccc;
+    border-style: solid;
+
+    ul{
+      list-style-type:none;
+      li{
+        padding: 0.5rem;
+        
+      }
+    }
+  }
+}

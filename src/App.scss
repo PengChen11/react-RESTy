@@ -16,4 +16,11 @@ body {
   h2 {
     margin: 0 2rem;
   }
+
+  main {
+    display: flex;
+    flex: 1;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
 }

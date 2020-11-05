@@ -1,19 +1,26 @@
 import React from 'react';
 import './results.scss';
+import PropTypes from 'prop-types';
+import ReactJson from 'react-json-view';
 
 class Results extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      result: '',
+    };
+  }
   render(){
     return (
-      <main>
-        <aside class="history">
-          <ul></ul>
-        </aside>
-        <section class="results">
-        </section>
-      </main>
-
+      <section className="results">
+        <ReactJson src={this.props.result} />
+      </section>
     );
   }
 }
+
+Results.propTypes = {
+  result: PropTypes.object,
+};
 
 export default Results;

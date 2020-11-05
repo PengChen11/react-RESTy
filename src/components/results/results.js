@@ -20,7 +20,7 @@ class Results extends React.Component{
 }
 
 Results.propTypes = {
-  result: PropTypes.object,
+  result: PropTypes.array,
 };
 
 export default Results;

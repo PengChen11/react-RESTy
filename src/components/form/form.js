@@ -37,35 +37,37 @@ class Form extends React.Component{
 
   };
 
+  MethodButton = (method)=>{
+    return (
+      <span className={`method ${this.state.request.method === method}`} onClick={() => this.handleChangeMethod(method)}>
+        {method.toUpperCase()}
+      </span>
+    );
+  }
+
+  JsonArea = (method)=>{
+    return (
+      <textarea name="data" spellCheck="false" placeholder="Please use strignified JSON data, text area disabled for GET and DELETE methods" disabled={method==='get' || method==='delete'}></textarea>
+    );
+  }
+
+
   render(){
     return (
       <>
         <form id = 'api' onSubmit = {this.handleRequest}>
           <div>
-            <label htmlFor="url">URL:
-              <input type="text" name="url" placeholder="http://api.url.here"  onChange={this.handleChangeUrl}/>
-            </label>
-
+            <label htmlFor="url">URL:</label>
+            <input type="text" name="url" placeholder="http://api.url.here"  onChange={this.handleChangeUrl}/>
             <button type='submit' >GO!</button>
           </div>
           <div className="methods">
-            <span className={`method ${this.state.request.method === 'get'}`} onClick={() => this.handleChangeMethod('get')}>
-              GET
-            </span>
-            <span className={`method ${this.state.request.method === 'post'}`} onClick={() => this.handleChangeMethod('post')}>
-              POST
-            </span>
-            <span className={`method ${this.state.request.method === 'put'}`} onClick={() => this.handleChangeMethod('put')}>
-              PUT
-            </span>
-            <span className={`method ${this.state.request.method === 'delete'}`} onClick={() => this.handleChangeMethod('delete')}>
-              DELETE
-            </span>
-          </div>
-          <div>
-            <label htmlFor="data">
-              <textarea name="data" spellCheck="false" placeholder="Please use pure JSON string"></textarea>
-            </label>
+            {this.MethodButton('get')}
+            {this.MethodButton('post')}
+            {this.MethodButton('put')}
+            {this.MethodButton('delete')}
+            <label htmlFor="data"></label>
+            {this.JsonArea(this.state.request.method)}
           </div>
         </form>
       </>

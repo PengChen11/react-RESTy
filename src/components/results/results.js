@@ -20,7 +20,7 @@ class Results extends React.Component{
 }
 
 Results.propTypes = {
-  result: PropTypes.funobject,
+  result: PropTypes.object,
 };
 
 export default Results;

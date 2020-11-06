@@ -12,12 +12,18 @@ class App extends React.Component{
     super(props);
     this.state = {
       request: {},
+      errors: {},
     };
   }
 
   getRequest = (result)=>{
-    this.setState({request: result});
+    let obj = {
+      headers: result.headers,
+      data: result.data || {error: result.message},
+    };
+    this.setState({request: obj});
   };
+
 
   render(){
     return (

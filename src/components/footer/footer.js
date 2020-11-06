@@ -7,7 +7,6 @@ class Footer extends React.Component{
       <footer>
         <p> &#169; 2018 Code Fellows </p>
       </footer>
-
     );
   }
 }

@@ -31,10 +31,11 @@ class Form extends React.Component{
     };
     try {
       const result = await axios(request);
-      this.props.getRequest(result.data);
+      this.props.getRequest(result);
     }
-    catch (err){console.error(err);}
-
+    catch (err){
+      this.props.getRequest(err);
+    }
   };
 
   MethodButton = (method)=>{
@@ -76,7 +77,8 @@ class Form extends React.Component{
 }
 
 Form.propTypes = {
-  getRequest: PropTypes.func,
+  getRequest: PropTypes.obj,
+
 };
 
 export default Form;

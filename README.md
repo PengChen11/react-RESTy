@@ -10,6 +10,8 @@ Deployed site: <https://peng-resty.herokuapp.com>
 
 [Click here to see Phase-2 requirements](docs/phase2.md)
 
+[Click here to see Phase-3 requirements](docs/phase3.md)
+
 ## Business Requirements
 
 Our application will be an API testing tool that can be run in any browser, allowing a user to easily interact with APIs in a familiar interface.

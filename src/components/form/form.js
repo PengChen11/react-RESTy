@@ -10,6 +10,7 @@ class Form extends React.Component{
       request: {
         url: '',
         method: 'get',
+        data: '',
       },
     };
   }
@@ -23,12 +24,20 @@ class Form extends React.Component{
     this.setState({ request: { ...this.state.request, method } });
   }
 
+  handleChangeData = (e)=>{
+    let data = e.target.value;
+    this.setState({ request: { ...this.state.request, data}});
+  }
+
   handleRequest = async (e)=>{
     e.preventDefault();
+    
     const request = {
       url: this.state.request.url,
       method: this.state.request.method,
+      // data: this.state.request.data,
     };
+    console.log('data:', JSON.parse(this.state.request.data));
     try {
       const result = await axios(request);
       this.props.getRequest(result);
@@ -48,7 +57,7 @@ class Form extends React.Component{
 
   JsonArea = (method)=>{
     return (
-      <textarea name="data" spellCheck="false" placeholder="Please use strignified JSON data, text area disabled for GET and DELETE methods" disabled={method==='get' || method==='delete'}></textarea>
+      <textarea name="data" spellCheck="false" placeholder="Please use strignified JSON data, text area disabled for GET and DELETE methods" disabled={method==='get' || method==='delete'} onChange = {this.handleChangeData}></textarea>
     );
   }
 

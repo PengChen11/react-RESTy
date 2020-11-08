@@ -2,7 +2,11 @@
 
 A browser based API testing tool
 
-Deployed site: <https://peng-resty.herokuapp.com>
+Deployed site:
+
+**Heroku:** <https://peng-resty.herokuapp.com>
+
+**GitHub Pages:** <https://pengchen11.github.io/react-resty>
 
 **Detailed phase documents:**
 

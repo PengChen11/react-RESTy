@@ -1,7 +1,9 @@
 .history {
+  flex: 1;
   margin: 1rem;
   overflow: auto;
-  width: 40%;
+  padding: 2rem;
+  max-width: 40%;
 
   h2 {
     text-align: center;

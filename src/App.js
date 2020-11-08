@@ -12,17 +12,34 @@ class App extends React.Component{
     super(props);
     this.state = {
       request: {},
-      errors: {},
+      result: {},
     };
   }
 
-  getRequest = (result)=>{
-    let obj = {
-      headers: result.headers,
-      data: result.data || {error: result.message},
+  getRequest = (replyData)=>{
+    let resultData = {
+      headers: replyData.result.headers || {error: 'no headers found'},
+      data: replyData.result.data || {error: replyData.result.message || 'Unknown Error'},
     };
-    this.setState({request: obj});
+    this.setState({
+      request: replyData.request,
+      result: resultData,
+    });
+    if (replyData.result.status ===200){
+      this.saveSucessfulRequestHistory(replyData);
+    }
   };
+
+  saveSucessfulRequestHistory = (replyData) =>{
+    sessionStorage.setItem(JSON.stringify(replyData.request), JSON.stringify(replyData.result));
+  }
+
+  updateResult = (result) =>{
+    this.setState({
+      result: result,
+    });
+  }
+
 
 
   render(){
@@ -31,8 +48,8 @@ class App extends React.Component{
         <Header />
         <Form getRequest={this.getRequest}/>
         <main>
-          <History />
-          <Results result={this.state.request}/>
+          <History history={this.state} updateResult={this.updateResult}/>
+          <Results result={this.state.result}/>
         </main>
         <Footer />
       </>

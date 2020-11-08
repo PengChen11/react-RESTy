@@ -2,6 +2,7 @@
   "name": "react-resty",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://pengchen11.github.io/react-resty/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",

@@ -2,7 +2,6 @@ import React from 'react';
 import './form.scss';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-// import Loader from 'react-loader-spinner';
 import ReactLoading from 'react-loading';
 const { If, Then } = require('react-if');
 
@@ -55,6 +54,7 @@ class Form extends React.Component{
           message: 'JSON data validation failed, please double check your JSON input. Quotes needed for both keys and values',
         };
         this.props.getRequest({result: error});
+        this.setState({isLoading: false});
         return;
       }
     }
@@ -79,6 +79,7 @@ class Form extends React.Component{
         result:error,
       };
       this.props.getRequest(data);
+      this.setState({isLoading: false});
       return;
     } else {
       try {

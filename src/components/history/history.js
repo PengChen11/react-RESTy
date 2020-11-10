@@ -3,48 +3,48 @@ import './history.scss';
 import PropTypes from 'prop-types';
 
 class History extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      requestStr: '',
-      resultStr:'',
-    };
+
+  handleHistoryRequest=(reqObj)=>{
+    let id = `${reqObj.method}Button`;
+    document.getElementById(id).click();
+    document.getElementById('urlInput').value = reqObj.url;
+
+    if (reqObj.data){
+      document.getElementById('jsonBody').value = JSON.stringify(reqObj.data) ;
+    }
   }
 
   renderQueryHistory=()=>{
 
-    let classes = `method ${this.props.history.request.method}`;
-    let newElement = <li ><button className = {classes} >{this.props.history.request.method}</button>{this.props.history.request.url}</li>;
-    return newElement;
+    const history=this.props.history;
+
+    const historyReqests = history.map((historyReq, index) =>
+      <li key={index}>
+        <span className={`method ${historyReq.method}`}>{historyReq.method}</span>
+        <button className='url' onClick={()=>this.handleHistoryRequest(historyReq)}>{historyReq.url}</button>
+      </li>
+    );
+
+    return (
+      <ul id='history'>
+        {historyReqests}
+      </ul>
+    );
   }
 
-  handleState = ()=>{
-    this.setState({
-      requestStr: JSON.stringify(this.props.history.request),
-    });
-  }
-
-  reRenderResult=()=>{
-    let result = sessionStorage.getItem(this.state.requestStr);
-
-    this.props.updateResult(JSON.parse(result));
-  }
 
   render(){
     return (
       <aside className="history">
         <h2>History</h2>
-        <ul id='history'>
-          {this.renderQueryHistory()}
-        </ul>
+        {this.renderQueryHistory()}
       </aside>
     );
   }
 }
 
 History.propTypes = {
-  history: PropTypes.object,
-  updateResult: PropTypes.func,
+  history: PropTypes.array,
 };
 
 export default History;

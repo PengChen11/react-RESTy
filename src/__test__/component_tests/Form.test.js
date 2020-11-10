@@ -1,4 +1,4 @@
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Form from '../../components/form/form.js';
 import React from 'react';
@@ -6,20 +6,20 @@ import React from 'react';
 
 test('Form component tests for method selection buttons', ()=>{
   render(<Form  />);
-  const getButton = screen.getByTestId('getButton');
+  const getButton = document.getElementById('getButton');
   expect(getButton).toHaveClass('true');
 
-  const postButton = screen.getByTestId('postButton');
+  const postButton = document.getElementById('postButton');
   expect(postButton).toHaveClass('false');
   fireEvent.click(postButton);
   expect(postButton).toHaveClass('true');
 
-  const putButton = screen.getByTestId('putButton');
+  const putButton = document.getElementById('putButton');
   expect(putButton).toHaveClass('false');
   fireEvent.click(putButton);
   expect(putButton).toHaveClass('true');
 
-  const deleteButton = screen.getByTestId('deleteButton');
+  const deleteButton = document.getElementById('deleteButton');
   expect(deleteButton).toHaveClass('false');
   fireEvent.click(deleteButton);
   expect(deleteButton).toHaveClass('true');
@@ -31,13 +31,13 @@ test('Form component tests for submission with bad URL', ()=>{
   render(<Form  getRequest={fakeFn}/>);
 
   const submitForm = document.getElementById('api');
-  const urlInput = screen.getByTestId('urlInput');
+  const urlInput = document.getElementById('urlInput');
   fireEvent.change(urlInput, {target: {value: 'some bad url'}});
   fireEvent.submit(submitForm);
 
   const urlErr = {
     request: {
-      data: {},
+      data: undefined,
       method: 'get',
       url: 'some bad url',
     },
@@ -50,8 +50,8 @@ test('Form component tests for submission with bad JSON body', ()=>{
   render(<Form  getRequest={fakeFn}/>);
 
   const submitForm = document.getElementById('api');
-  const urlInput = screen.getByTestId('urlInput');
-  const jsonBody = screen.getByTestId('jsonBody');
+  const urlInput = document.getElementById('urlInput');
+  const jsonBody = document.getElementById('jsonBody');
   fireEvent.change(urlInput, {target: {value: 'http://good.address'}});
   fireEvent.change(jsonBody, {target: {value: 'some bad body'}});
   fireEvent.submit(submitForm);

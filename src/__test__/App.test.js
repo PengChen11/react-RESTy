@@ -25,18 +25,18 @@ test('renders form buttons', () => {
   expect(deleteButton).toBeInTheDocument(); 
 });
 
-test('renders history', () => {
+test('do NOT renders history when no requests is made yet', () => {
   render(<App />);
-  const historyElement = screen.getByText(/History/i);
-  expect(historyElement).toBeInTheDocument(); 
+  const historyElement = screen.queryByText(/History/i);
+  expect(historyElement).not.toBeInTheDocument(); 
 });
 
-test('renders result', () => {
+test('do NOT renders result when no requests is made yet', () => {
   render(<App />);
-  const resultHeaders = screen.getByText(/Headers/i);
-  expect(resultHeaders).toBeInTheDocument(); 
-  const resultData = screen.getByText(/data/i);
-  expect(resultData).toBeInTheDocument();
+  const resultHeaders = screen.queryByText(/Headers/i);
+  expect(resultHeaders).not.toBeInTheDocument(); 
+  const resultData = screen.queryByText(/data/i);
+  expect(resultData).not.toBeInTheDocument();
 });
 
 test (' renders footer', () =>{

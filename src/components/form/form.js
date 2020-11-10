@@ -2,6 +2,8 @@ import React from 'react';
 import './form.scss';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import Loader from 'react-loader-spinner';
+const { If, Then } = require('react-if');
 
 class Form extends React.Component{
   constructor(props){
@@ -12,8 +14,10 @@ class Form extends React.Component{
         method: 'get',
         data: '',
       },
+      spiner:false,
     };
   }
+
 
   handleChangeUrl = (e)=>{
     let url = e.target.value;
@@ -26,6 +30,10 @@ class Form extends React.Component{
       method,
       data: '',
     } });
+    if (method != 'post' || method != 'put'){
+      document.getElementById('jsonBody').value = null;
+    }
+
   }
 
   handleChangeData = (e)=>{
@@ -35,6 +43,7 @@ class Form extends React.Component{
 
   handleRequest = async (e)=>{
     e.preventDefault();
+    this.setState({spiner: true});
     let requestWithBodyData;
     if (this.state.request.data){
       try {
@@ -52,7 +61,7 @@ class Form extends React.Component{
     const request = {
       url: this.state.request.url,
       method: this.state.request.method,
-      data: requestWithBodyData || {},
+      data: requestWithBodyData,
     };
 
     let data = {
@@ -78,6 +87,7 @@ class Form extends React.Component{
           result,
         };
         this.props.getRequest(data);
+        this.setState({spiner: false});
       }
       catch (error){
         data = {
@@ -85,6 +95,7 @@ class Form extends React.Component{
           result:error,
         };
         this.props.getRequest(data);
+        this.setState({spiner: false});
       }
     }
   };
@@ -100,10 +111,10 @@ class Form extends React.Component{
   }
 
   MethodButton = (method)=>{
-    let testID = `${method}Button`;
+    let id = `${method}Button`;
 
     return (
-      <span data-testid = {testID} className={`method ${this.state.request.method === method}`} onClick={() => this.handleChangeMethod(method)}>
+      <span id = {id} className={`method ${this.state.request.method === method}`} onClick={() => this.handleChangeMethod(method)}>
         {method.toUpperCase()}
       </span>
     );
@@ -111,7 +122,7 @@ class Form extends React.Component{
 
   JsonArea = (method)=>{
     return (
-      <textarea data-testid='jsonBody' name="data" spellCheck="false" placeholder="Please use strignified JSON data, text area disabled for GET and DELETE methods" disabled={method==='get' || method==='delete'} value={this.state.request.data} onChange = {this.handleChangeData}></textarea>
+      <textarea id='jsonBody' name="data" spellCheck="false" placeholder="Please use strignified JSON data, text area disabled for GET and DELETE methods" disabled={method==='get' || method==='delete'}  onChange = {this.handleChangeData} rows="3" cols="90"></textarea> 
     );
   }
 
@@ -122,7 +133,7 @@ class Form extends React.Component{
         <form id = 'api' onSubmit = {this.handleRequest}>
           <div>
             <label htmlFor="url">URL:</label>
-            <input data-testid='urlInput' type="text" name="url" placeholder="http://api.url.here"  onChange={this.handleChangeUrl}/>
+            <input id='urlInput' type="text" name="url" placeholder="http://api.url.here"  onChange={this.handleChangeUrl}/>
             <button type='submit' disabled={!this.state.request.url}>GO!</button>
           </div>
           <div className="methods">
@@ -130,10 +141,17 @@ class Form extends React.Component{
             {this.MethodButton('post')}
             {this.MethodButton('put')}
             {this.MethodButton('delete')}
-            <label htmlFor="data"></label>
+            {/* <label htmlFor="data"></label> */}
             {this.JsonArea(this.state.request.method)}
           </div>
         </form>
+        <If condition={this.state.spiner}>
+          <Then>
+            <div id='spiner'>
+              <Loader type="ThreeDots" color="#f5f5f5" height="100" width="200" />
+            </div>
+          </Then>
+        </If>
       </>
     );
   }
@@ -141,6 +159,7 @@ class Form extends React.Component{
 
 Form.propTypes = {
   getRequest: PropTypes.func,
+  reRequest: PropTypes.object,
 };
 
 export default Form;

@@ -1,5 +1,11 @@
 footer {
   background-color: gray;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  height: 60px;
   p {
     margin-left: 2em;
     font-weight: bolder;

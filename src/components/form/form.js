@@ -2,7 +2,8 @@ import React from 'react';
 import './form.scss';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import Loader from 'react-loader-spinner';
+// import Loader from 'react-loader-spinner';
+import ReactLoading from 'react-loading';
 const { If, Then } = require('react-if');
 
 class Form extends React.Component{
@@ -14,7 +15,7 @@ class Form extends React.Component{
         method: 'get',
         data: '',
       },
-      spiner:false,
+      isLoading:false,
     };
   }
 
@@ -43,7 +44,7 @@ class Form extends React.Component{
 
   handleRequest = async (e)=>{
     e.preventDefault();
-    this.setState({spiner: true});
+    this.setState({isLoading: true});
     let requestWithBodyData;
     if (this.state.request.data){
       try {
@@ -87,7 +88,7 @@ class Form extends React.Component{
           result,
         };
         this.props.getRequest(data);
-        this.setState({spiner: false});
+        this.setState({isLoading: false});
       }
       catch (error){
         data = {
@@ -95,7 +96,7 @@ class Form extends React.Component{
           result:error,
         };
         this.props.getRequest(data);
-        this.setState({spiner: false});
+        this.setState({isLoading: false});
       }
     }
   };
@@ -145,10 +146,11 @@ class Form extends React.Component{
             {this.JsonArea(this.state.request.method)}
           </div>
         </form>
-        <If condition={this.state.spiner}>
+        <If condition={this.state.isLoading}>
           <Then>
-            <div id='spiner'>
-              <Loader type="ThreeDots" color="#f5f5f5" height="100" width="200" />
+            <div id='isLoading'>
+              {/* <Loader type="ThreeDots" color="#f5f5f5" height="100" width="200" /> */}
+              <ReactLoading type={'bars'} color={'grey'} width={150} />
             </div>
           </Then>
         </If>

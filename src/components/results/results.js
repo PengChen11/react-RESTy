@@ -10,7 +10,9 @@ class Results extends React.Component{
   render(){
     return (
       <section className="results">
+        <h2>Headers:</h2>
         <ReactJson src={this.props.result.headers} name='Headers' />
+        <h2>Results:</h2>
         <ReactJson src={this.props.result.data} name='data' />
       </section>
     );

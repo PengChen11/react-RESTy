@@ -5,14 +5,15 @@ import Form from './components/form/form';
 import Results from './components/results/results';
 import History from './components/history/history';
 import Footer from './components/footer/footer';
+const { If, Then } = require('react-if');
+//{ If, Then, Else, When, Unless, Switch, Case, Default }
 
 
 class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      request: {},
-      result: {},
+      history: [],
     };
   }
 
@@ -22,7 +23,7 @@ class App extends React.Component{
       data: replyData.result.data || {error: replyData.result.message || 'Unknown Error'},
     };
     this.setState({
-      request: replyData.request,
+      history: [...this.state.history.concat(replyData.request)],
       result: resultData,
     });
     if (replyData.result.status ===200){
@@ -34,13 +35,6 @@ class App extends React.Component{
     sessionStorage.setItem(JSON.stringify(replyData.request), JSON.stringify(replyData.result));
   }
 
-  updateResult = (result) =>{
-    this.setState({
-      result: result,
-    });
-  }
-
-
 
   render(){
     return (
@@ -48,8 +42,13 @@ class App extends React.Component{
         <Header />
         <Form getRequest={this.getRequest}/>
         <main>
-          <History history={this.state} updateResult={this.updateResult}/>
-          <Results result={this.state.result}/>
+          
+          <If condition={this.state.result}>
+            <Then>
+              <History history={this.state.history}/>
+              <Results result={this.state.result}/>
+            </Then>
+          </If>
         </main>
         <Footer />
       </>

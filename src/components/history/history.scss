@@ -3,7 +3,7 @@
   margin: 1rem;
   overflow: auto;
   padding: 2rem;
-  max-width: 40%;
+  // max-width: 40%;
 
   h2 {
     text-align: center;
@@ -17,12 +17,16 @@
     li {
       padding: .5rem 0;
 
+
       .method {
         border-radius: 5px;
         color: #fff;
         display: inline-block;
         font-weight: bold;
         padding: .25rem 1rem;
+        width:80px;
+        height: 36px;
+        text-align: center;
 
         &.get {
           background: blue;
@@ -46,6 +50,10 @@
         border: none;
         cursor: pointer;
         padding: .5rem 1rem;
+        font-size: large;
+        &:hover {
+          color: #f5f5f5;
+        }
       }
     }
   }

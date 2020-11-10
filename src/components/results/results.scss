@@ -1,12 +1,19 @@
 .results {
-  background: #f5f5f5;
-  border: 1px solid #111;
   flex: 1;
   margin: 1rem;
   overflow: auto;
   padding: 2rem;
-  max-width: 40%;
-  border-radius: 1rem;
+  margin-bottom: 70px;
+  font-size: large;
+  
+  .react-json-view {
+    margin: 1rem 2rem;
+  }
+
+  h2 {
+    text-align: center;
+  }
 }
+
 
 

@@ -21,4 +21,4 @@ test('it should list all history urls', ()=>{
   const urlPostElement = screen.getByText(/someFakePost.com/i);
   expect(urlPostElement).toBeInTheDocument();
 
-})
+});

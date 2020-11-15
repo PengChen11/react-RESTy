@@ -1,59 +1,28 @@
 import React from 'react';
 import './App.scss';
 import Header from './components/header/header';
-import Form from './components/form/form';
-import Results from './components/results/results';
-import History from './components/history/history';
 import Footer from './components/footer/footer';
-const { If, Then } = require('react-if');
-//{ If, Then, Else, When, Unless, Switch, Case, Default }
+import {
+  Switch,
+  Route,
+} from 'react-router-dom';
+import Home from './pages/home';
+import HistoryPage from './pages/historyPage';
+import Help from './pages/help';
 
 
-class App extends React.Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      history: [],
-    };
-  }
-
-  getRequest = (replyData)=>{
-    let resultData = {
-      headers: replyData.result.headers || {error: 'no headers found'},
-      data: replyData.result.data || {error: replyData.result.message || 'Unknown Error'},
-    };
-    this.setState({
-      history: [...this.state.history.concat(replyData.request)],
-      result: resultData,
-    });
-    if (replyData.result.status ===200){
-      this.saveSucessfulRequestHistory(replyData);
-    }
-  };
-
-  saveSucessfulRequestHistory = (replyData) =>{
-    sessionStorage.setItem(JSON.stringify(replyData.request), JSON.stringify(replyData.result));
-  }
-
-
-  render(){
-    return (
-      <>
-        <Header />
-        <Form getRequest={this.getRequest}/>
-        <main>
-          
-          <If condition={this.state.result}>
-            <Then>
-              <History history={this.state.history}/>
-              <Results result={this.state.result}/>
-            </Then>
-          </If>
-        </main>
-        <Footer />
-      </>
-    );
-  }
+export default function App(){
+  return (
+    <>
+      <Header />
+      <Switch>
+        <Route exact path='/' component={Home}></Route>
+        <Route exact path='/history' component={HistoryPage}></Route>
+        <Route exact path='/help' component={Help}></Route>
+        <Route ><h2>The route does not exsit</h2></Route>
+      </Switch>
+      <Footer />
+    </>
+  );
 }
 
-export default App;

@@ -59,7 +59,7 @@ class Form extends React.Component{
       }
     }
 
-    const request = {
+    let request = {
       url: this.state.request.url,
       method: this.state.request.method,
       data: requestWithBodyData,

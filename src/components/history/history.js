@@ -59,8 +59,6 @@ class History extends React.Component{
   renderQueryHistory=()=>{
 
     const history=this.props.history;
-    console.log('history from history comp: ',history);
-
     const historyReqests = history.map((historyReq, index) =>
       <li key={index}>
         <span className={`method ${historyReq.method}`}>{historyReq.method}</span>
